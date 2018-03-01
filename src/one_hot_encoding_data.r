@@ -13,7 +13,7 @@ data_test <- read.table( file=url_test, skip=1, header=FALSE, colClasses=colClas
 data_test[,15] <- factor(sub("\\.", "", data_test[,15]))
 
 # Create the validation set from the training set
-smp_size = floor(0.7*nrow(data_train))
+smp_size = floor(0.8*nrow(data_train))
 set.seed(788)
 train_ind <- sample(seq_len(nrow(data_train)), size=smp_size)
 data_train_smaller <- data_train[train_ind,]
