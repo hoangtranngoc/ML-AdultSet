@@ -33,8 +33,8 @@ ohenc_data_test <- predict(encoder, data_test)
 write.table(ohenc_data_train, file= "ohenc_data.train", sep= " ", row.names=FALSE, col.names=FALSE)
 write.table(ohenc_data_test, file= "ohenc_data.test", sep= " ", row.names=FALSE, col.names=FALSE)
 
-write.table(ohenc_data_train, file= "ohenc_data.validation", sep= " ", row.names=FALSE, col.names=FALSE)
-write.table(ohenc_data_train, file= "ohenc_data_colNames.validation", sep= " ", row.names=FALSE, col.names=TRUE)
+write.table(ohenc_data_validation, file= "ohenc_data.validation", sep= " ", row.names=FALSE, col.names=FALSE)
+write.table(ohenc_data_validation, file= "ohenc_data_colNames.validation", sep= " ", row.names=FALSE, col.names=TRUE)
 
 write.table(ohenc_data_train, file= "ohenc_data_colNames.train", sep= " ", row.names=FALSE, col.names=TRUE)
 write.table(ohenc_data_test, file= "ohenc_data_colNames.test", sep= " ", row.names=FALSE, col.names=TRUE)
