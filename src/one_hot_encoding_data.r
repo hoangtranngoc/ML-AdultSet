@@ -12,6 +12,45 @@ data_test <- read.table( file=url_test, skip=1, header=FALSE, colClasses=colClas
 # remove trailing dot
 data_test[,15] <- factor(sub("\\.", "", data_test[,15]))
 
+# Scale the column 'fnlwgt'.
+#data_test$fnlwgt <- scale(data_test$fnlwgt)
+#data_train$fnlwgt <- scale(data_train$fnlwgt)
+
+library(caret)
+
+# Normalize
+train_normalizationlist <- preProcess(data_train, method=c("range"))
+test_normalizationlist <- preProcess(data_test, method=c("range"))
+data_train_normalized <- predict(train_normalizationlist, data_train)
+data_test_normalized <- predict(test_normalizationlist, data_test)
+rm(train_normalizationlist, test_normalizationlist)
+
+# Apply centering and scaling
+train_centeringandscalinglist <- preProcess(data_train_normalized, method=c("center", "scale"))
+test_centeringandscalinglist <- preProcess(data_test_normalized, method=c("center", "scale"))
+data_train_processed <- predict(train_centeringandscalinglist, data_train_normalized)
+data_test_processed <- predict(test_centeringandscalinglist, data_test_normalized)
+rm(train_centeringandscalinglist, test_centeringandscalinglist)
+
+data_train <- data_train_processed 
+data_test <- data_test_processed
+
+# Debugging output, nice to have
+dtrm <- mean(data_train$fnlwgt)
+dtrs <- sd(data_train$fnlwgt)
+dtem <- mean(data_test$fnlwgt)
+dtes <- sd(data_test$fnlwgt)
+message("Training: Mean of fnlwgt is ", dtrm)
+message("Training: Standard deviation of fnlwgt is ", dtrs)
+message("Testing: Mean of fnlwgt is ", dtem)
+message("Testing: Standard deviation of fnlwgt is ", dtes)
+rm(dtrm,dtrs,dtem,dter)
+
+# Copy the data, and clean up
+data_train <- data_train_processed
+data_test <- data_test_processed
+rm(data_train_processed, data_test_processed)
+
 # Create the validation set from the training set
 smp_size = floor(0.8*nrow(data_train))
 set.seed(788)
