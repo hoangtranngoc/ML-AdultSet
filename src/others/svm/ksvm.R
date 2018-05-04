@@ -31,7 +31,7 @@ adult.test_norm[, c(15)] <-sapply(adult.test_norm[,c(15)], as.factor)
 
 #training with ksvm, rbfdot kernel, sigma and cross validation
 ksvm_model <- ksvm( V15 ~., type="C-svc", data= adult_norm, kernel = "rbfdot",
-                    C=2,kpar=list(sigma=0.6),cross=10,prob.model=TRUE)
+                    C=2,kpar=list(sigma=0.06),cross=10,prob.model=TRUE)
 
 #evaluating the model, confusion matrix
 ksvm_pred <- predict(ksvm_model, adult.test_norm)
