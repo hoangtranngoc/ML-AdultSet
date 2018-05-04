@@ -1,8 +1,7 @@
-# KNN k nearest neighbors, training on model with kknn algorithm
-#
+#SVM, kernlab package
 
 library(caret)
-library(kknn)
+library(kernlab)
 
 # Loading datasets
 adult <- read.csv("~/GitHub/ML-AdultSet/data/adult.data", header=FALSE)
@@ -21,26 +20,22 @@ normalize <- function(newdataf, dataf){
   } 
   return(normalizeddataf)
 }
+
 # applying noralization on data
 adult_norm <- normalize(adult,adult)
 adult.test_norm <- normalize(adult.test,adult)
 
 #make output V15 variable as factor
-adult_norm[, c(15)] <-sapply(adult_norm[,c(15)], as.factor) 
-adult.test_norm[, c(15)] <-sapply(adult.test_norm[,c(15)], as.factor) 
+adult_norm[, c(15)] <-sapply(adult[,c(15)], as.factor) 
+adult.test_norm[, c(15)] <-sapply(adult.test[,c(15)], as.factor) 
 
+#training with ksvm, rbfdot kernel, sigma and cross validation
+ksvm_model <- ksvm( V15 ~., type="C-svc", data= adult_norm, kernel = "rbfdot",
+                    C=2,kpar=list(sigma=0.06),cross=10,prob.model=TRUE)
 
-#training with kknn triangular kernel
-kknn.fit <- train.kknn(formula = V15 ~ ., data = adult_norm, kmax = 100,
-                       kernel = c("triangular"), scale = TRUE)
+#evaluating the model, confusion matrix
+ksvm_pred <- predict(ksvm_model, adult.test_norm)
+confusionMatrix(ksvm_pred,adult.test_norm$V15)  
 
-#ploting results
-plot(kknn.fit)
-
-#Confusion matrix
-kknn_pred <- predict(kknn.fit, adult.test_norm)
-confusionMatrix(kknn_pred,adult.test_norm$V15)
-
-#sources:
-#http://rstudio-pubs-static.s3.amazonaws.com/349520_6c62f724297f4084abb48493c6f703a5.html
-#https://cran.r-project.org/web/packages/kknn/kknn.pdf
+#sources: 
+#https://www.rdocumentation.org/packages/kernlab/versions/0.9-25/topics/ksvm 

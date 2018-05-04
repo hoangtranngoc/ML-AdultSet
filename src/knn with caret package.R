@@ -1,4 +1,4 @@
-# KNN (k nearest neighbors) , training on model with caret package, and evaluating performance
+# KNN (k nearest neighbors) , training with caret package
 
 library(caret)
 
@@ -48,3 +48,8 @@ predictions<-predict.train(object=model_knn,adult.test_norm[,1:14], type="raw")
 
 # Confusion matrix
 confusionMatrix(predictions,adult.test_norm[,15])
+
+#sources:
+#https://www.datacamp.com/community/tutorials/machine-learning-in-r
+#http://dataaspirant.com/2017/01/09/knn-implementation-r-using-caret-package/
+
