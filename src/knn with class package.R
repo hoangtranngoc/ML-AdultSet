@@ -34,15 +34,12 @@ adult.test_norm[, c(15)] <-sapply(adult.test_norm[,c(15)], as.factor)
 
 #training a model on the data
 # we can either store factors in labels as above or just use cl=adult_norm[,15]
-knn_model <- knn( train = adult_norm,test=adult.test_norm,
-                   cl=adult_norm_labels,k=21)
+knn_model <- knn3(V15 ~., adult_norm,k=21)
 
-#k-Nearest Neighbour Cross-Validatory Classification
-knn_cv_model <- knn.cv(adult_norm, adult_norm_labels, k = 3, prob = TRUE)
-
-knn_pred <- predict(knn_model, newdata= adult.test_norm)
-confusionMatrix(knn_model,adult.test_norm_labels)
+#evaluating model performance
+knn_pred <- predict(knn_model, adult.test_norm, type="class")
+confusionMatrix(knn_pred,adult.test_norm_labels)
 
 #sources:
 #Lantz, B. (2013). Machine Learning with R. Packt Publishing.
-#
+#https://daviddalpiaz.github.io/stat432sp18/supp/knn_class_r.html
