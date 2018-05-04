@@ -1,4 +1,4 @@
-# KNN (k nearest neighbors) , training with caret package
+# KNN, caret package
 
 library(caret)
 

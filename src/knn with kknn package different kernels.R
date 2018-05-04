@@ -1,4 +1,4 @@
-# KNN k nearest neighbors, training on model with kknn algorithm
+# KNN, kknn package, training with multiple kernels, CV leave one out method
 
 library(caret)
 library(kknn)
@@ -43,3 +43,4 @@ confusionMatrix(kknn_pred,adult.test_norm$V15)
 #sources:
 #http://rstudio-pubs-static.s3.amazonaws.com/349520_6c62f724297f4084abb48493c6f703a5.html
 #https://cran.r-project.org/web/packages/kknn/kknn.pdf
+
