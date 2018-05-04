@@ -25,8 +25,8 @@ adult_norm <- normalize(adult,adult)
 adult.test_norm <- normalize(adult.test,adult)
 
 #make output V15 variable as factor
-adult_norm[, c(15)] <-sapply(adult[,c(15)], as.factor) 
-adult.test_norm[, c(15)] <-sapply(adult.test[,c(15)], as.factor) 
+adult_norm[, c(15)] <-sapply(adult_norm[,c(15)], as.factor) 
+adult.test_norm[, c(15)] <-sapply(adult.test_norm[,c(15)], as.factor) 
 
 # Train the model with preprocessing
 #model_knn <- train(adult[, 1:14], adult_norm[, 15], method='knn', preProcess=c("center", "scale"))

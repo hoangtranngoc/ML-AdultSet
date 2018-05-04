@@ -26,8 +26,8 @@ adult_norm <- normalize(adult,adult)
 adult.test_norm <- normalize(adult.test,adult)
 
 #make output V15 variable as factor
-adult_norm[, c(15)] <-sapply(adult[,c(15)], as.factor) 
-adult.test_norm[, c(15)] <-sapply(adult.test[,c(15)], as.factor) 
+adult_norm[, c(15)] <-sapply(adult_norm[,c(15)], as.factor) 
+adult.test_norm[, c(15)] <-sapply(adult.test_norm[,c(15)], as.factor) 
 
 #training with ksvm, rbfdot kernel, sigma and cross validation
 ksvm_model <- ksvm( V15 ~., type="C-svc", data= adult_norm, kernel = "rbfdot",

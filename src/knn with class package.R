@@ -24,3 +24,25 @@ normalize <- function(newdataf, dataf){
 adult_norm <- normalize(adult,adult)
 adult.test_norm <- normalize(adult.test,adult)
 
+#storing class labels in factor vectors, divided to the training and test datasets
+adult_norm_labels <- adult_norm[, 15]
+adult.test_norm_labels <- adult.test_norm[, 15]
+
+#make output V15 variable as factor
+adult_norm[, c(15)] <-sapply(adult_norm[,c(15)], as.factor) 
+adult.test_norm[, c(15)] <-sapply(adult.test_norm[,c(15)], as.factor) 
+
+#training a model on the data
+# we can either store factors in labels as above or just use cl=adult_norm[,15]
+knn_model <- knn( train = adult_norm,test=adult.test_norm,
+                   cl=adult_norm_labels,k=21)
+
+#k-Nearest Neighbour Cross-Validatory Classification
+knn_cv_model <- knn.cv(adult_norm, adult_norm_labels, k = 3, prob = TRUE)
+
+knn_pred <- predict(knn_model, newdata= adult.test_norm)
+confusionMatrix(knn_model,adult.test_norm_labels)
+
+#sources:
+#Lantz, B. (2013). Machine Learning with R. Packt Publishing.
+#
